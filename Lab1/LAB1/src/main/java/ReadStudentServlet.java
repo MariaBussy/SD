@@ -18,11 +18,11 @@ public class ReadStudentServlet extends HttpServlet {
             return;
         }
         XmlMapper xmlMapper = new XmlMapper();
-        StudentBean bean = xmlMapper.readValue(file,
-                StudentBean.class);
+        StudentBean bean = xmlMapper.readValue(file, StudentBean.class);
         request.setAttribute("nume", bean.getNume());
         request.setAttribute("prenume", bean.getPrenume());
         request.setAttribute("varsta", bean.getVarsta());
+
         // redirectionare date catre pagina de afisare a informatiilorstudentului
         request.getRequestDispatcher("./info-student.jsp").forward(request, response);
     }
