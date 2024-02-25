@@ -14,7 +14,7 @@ public class ProcessStudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
-// se citesc parametrii din cererea de tip POST
+        // se citesc parametrii din cererea de tip POST
         String nume = request.getParameter("nume");
         String prenume = request.getParameter("prenume");
         int varsta = Integer.parseInt(request.getParameter("varsta"));
@@ -38,6 +38,6 @@ public class ProcessStudentServlet extends HttpServlet {
         request.setAttribute("prenume", prenume);
         request.setAttribute("varsta", varsta);
         request.setAttribute("anNastere", anNastere);
-        request.getRequestDispatcher("./info- student.jsp").forward(request, response);
+        request.getRequestDispatcher("./info-student.jsp").forward(request, response);
     }
 }

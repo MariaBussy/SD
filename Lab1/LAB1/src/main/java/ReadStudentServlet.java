@@ -24,6 +24,6 @@ public class ReadStudentServlet extends HttpServlet {
         request.setAttribute("prenume", bean.getPrenume());
         request.setAttribute("varsta", bean.getVarsta());
         // redirectionare date catre pagina de afisare a informatiilorstudentului
-        request.getRequestDispatcher("./info- student.jsp").forward(request, response);
+        request.getRequestDispatcher("./info-student.jsp").forward(request, response);
     }
 }
