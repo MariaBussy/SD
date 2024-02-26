@@ -4,6 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+
 public class CRUDOperations {
     private static Connection connection = null;
 
@@ -53,5 +59,34 @@ public class CRUDOperations {
         } finally {
             closeConnection();
         }
+    }
+    public static void exportDatabaseAsJSON(String outputFilePath) throws IOException, SQLException {
+        ObjectMapper mapper = new ObjectMapper();
+        StringBuilder jsonBuilder = new StringBuilder();
+
+        try {
+            ResultSet rs = executeQuery("SELECT * FROM students");
+
+            while (rs.next()) {
+                String[] studentData = {
+                        rs.getString("nume"),
+                        rs.getString("prenume"),
+                        Integer.toString(rs.getInt("varsta"))
+                };
+                String jsonLine = mapper.writeValueAsString(studentData);
+                jsonBuilder.append(jsonLine).append("\n");
+            }
+
+            Files.write(Paths.get(outputFilePath), jsonBuilder.toString().getBytes(StandardCharsets.UTF_8));
+        } catch (IOException | SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            closeConnection();
+        }
+    }
+
+    private static ResultSet executeQuery(String query) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement(query);
+        return ps.executeQuery();
     }
 }

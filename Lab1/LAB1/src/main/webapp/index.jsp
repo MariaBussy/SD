@@ -11,5 +11,8 @@
         <p>
         <a href="./read-student">Vizualizare student</a>
         </p>
+        <p>
+        <a href="./view-table">Tabela student</a>
+        </p>
     </body>
 </html>
