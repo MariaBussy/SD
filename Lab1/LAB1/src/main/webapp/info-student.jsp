@@ -13,7 +13,7 @@
 
         <!-- folosirea bean-ului pentru afisarea informatiilor -->
         <p>Urmatoarele informatii au fost introduse/Informatii actualizate:</p>
-        <formaction="./process-student" method="post">
+        <form action="./process-student" method="post">
              Nume:<jsp:getProperty name="studentBean"
                               property="nume" />
              <input type="text" name="nume" />

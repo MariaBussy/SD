@@ -16,8 +16,49 @@ public class ProcessStudentServlet extends HttpServlet {
             throws ServletException, IOException {
         // se citesc parametrii din cererea de tip POST
         String nume = request.getParameter("nume");
+        if(nume==""){
+            // deserializare student din fisierul XML de pe disc
+            File file = new File("/home/student/opt/student.xml");
+            // se returneaza un raspuns HTTP de tip 404 in cazul in care nu se gaseste fisierul cu date
+            if (!file.exists()) {
+                response.sendError(404, "Nu a fost gasit niciun student serializat pe disc!");
+                return;
+            }
+            XmlMapper xmlMapper = new XmlMapper();
+            StudentBean bean = xmlMapper.readValue(file, StudentBean.class);
+            nume= bean.getNume();
+        }
         String prenume = request.getParameter("prenume");
-        int varsta = Integer.parseInt(request.getParameter("varsta"));
+        if(prenume==""){
+            // deserializare student din fisierul XML de pe disc
+            File file = new File("/home/student/opt/student.xml");
+            // se returneaza un raspuns HTTP de tip 404 in cazul in care nu se gaseste fisierul cu date
+            if (!file.exists()) {
+                response.sendError(404, "Nu a fost gasit niciun student serializat pe disc!");
+                return;
+            }
+            XmlMapper xmlMapper = new XmlMapper();
+            StudentBean bean = xmlMapper.readValue(file, StudentBean.class);
+            prenume= bean.getPrenume();
+        }
+        String varstaString=request.getParameter("varsta");
+        int varsta =0;
+        if(varstaString==""){
+            // deserializare student din fisierul XML de pe disc
+            File file = new File("/home/student/opt/student.xml");
+            // se returneaza un raspuns HTTP de tip 404 in cazul in care nu se gaseste fisierul cu date
+            if (!file.exists()) {
+                response.sendError(404, "Nu a fost gasit niciun student serializat pe disc!");
+                return;
+            }
+            XmlMapper xmlMapper = new XmlMapper();
+            StudentBean bean = xmlMapper.readValue(file, StudentBean.class);
+            varsta=bean.getVarsta();
+        }
+        else{
+            varsta=Integer.parseInt(varstaString);
+        }
+
         /*
         procesarea datelor - calcularea anului nasterii
         */
@@ -31,9 +72,11 @@ public class ProcessStudentServlet extends HttpServlet {
         bean.setNume(nume);
         bean.setPrenume(prenume);
         bean.setVarsta(varsta);
+
         // serializare bean sub forma de string XML
         mapper.writeValue(new File("/home/student/opt/student.xml"), bean);
         // se trimit datele primite si anul nasterii catre o alt pagina JSP pentru afisare
+
         request.setAttribute("nume", nume);
         request.setAttribute("prenume", prenume);
         request.setAttribute("varsta", varsta);
