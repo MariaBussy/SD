@@ -7,7 +7,8 @@ import java.sql.SQLException;
 public class CRUDOperations {
     private static Connection connection = null;
 
-    public static void setConnection(String url) throws SQLException {
+    public static void setConnection(String url) throws SQLException, ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection(url);
     }
 
@@ -41,7 +42,11 @@ public class CRUDOperations {
             preparedStatement.setInt(3, varsta);
 
             // Execute the update
-            preparedStatement.executeUpdate();
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                connection.commit(); // Commit the changes made by the current transaction
+            }
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

@@ -16,10 +16,11 @@ public class ProcessStudentServlet extends HttpServlet {
                           HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            CRUDOperations.setConnection("jdbc:sqlite:studenti.db");
-        } catch (SQLException e) {
+            CRUDOperations.setConnection("jdbc:sqlite:/home/student/opt/studenti.db");
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         // se citesc parametrii din cererea de tip POST
         String nume = request.getParameter("nume");
         String prenume = request.getParameter("prenume");
