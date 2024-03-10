@@ -11,12 +11,12 @@ class LocationSearchService : LocationSearchInterface {
 // codificare parametru URL (deoarece poate conţine caractere speciale)
         val encodedLocationName = URLEncoder.encode(locationName, StandardCharsets.UTF_8.toString())
 // construire obiect de tip URL
-        val locationSearchURL = URL("https://www.metaweather.com/api/location/search/?query=$encodedLocationName")
+        val locationSearchURL = URL("https://api.weatherapi.com/v1/current.json?key=a71940cdee6041c7add73227240503&q=$encodedLocationName&api=no")
 // preluare raspuns HTTP (se face cerere GET şi se preia conţinutul răspunsului sub formă de text)
         val rawResponse: String = locationSearchURL.readText()
 //// parsare obiect JSON
-        val responseRootObject = JSONObject("{\"data\": ${rawResponse}}")
-        val responseContentObject = responseRootObject.getJSONArray("data.location").takeUnless { it.isEmpty }?.getJSONObject(0)
-        return responseContentObject?.getString("name") ?: "-1"
+        val responseRootObject = JSONObject(rawResponse)
+        val cityName = responseRootObject.getJSONObject("location").getString("name")
+        return  cityName ?: "-1"
     }
 }

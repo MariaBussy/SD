@@ -21,7 +21,7 @@ class WeatherAppController {
 // se incearca preluarea WOEID-ului locaţiei primite in URL
         val locationId = locationSearchService.getLocationId(location)
 // dacă locaţia nu a fost găsită, răspunsul va fi corespunzător
-        if (locationId == -1) {
+        if (locationId == "-1") {
             return "Nu s-au putut gasi date meteo pentru cuvintele cheie \"$location\"!"
         }
 // pe baza ID-ului de locaţie, se interoghează al doilea serviciu care returnează datele meteo
