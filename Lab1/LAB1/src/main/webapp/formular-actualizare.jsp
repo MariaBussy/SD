@@ -13,18 +13,24 @@
 
         <!-- folosirea bean-ului pentru afisarea informatiilor -->
         <p>Urmatoarele informatii au fost introduse:</p>
+        <ul type="bullet">
+            <li>Nume: <jsp:getProperty name="studentBean"
+            property="nume" /></li>
+            <li>Prenume: <jsp:getProperty name="studentBean"
+            property="prenume" /></li>
+            <li>Varsta: <jsp:getProperty name="studentBean"
+            property="varsta" /></li>
+        </ul>
+        <p>Noile informatii:</p>
         <formaction="./process-student" method="post">
-             Nume:<jsp:getProperty name="studentBean" property="nume" />
-             <input type="text" name="nume" />
-             <br />
-             Prenume: <jsp:getProperty name="studentBean" property="prenume" />
-             <input type="text" name="prenume" />
-             <br />
-             Varsta: <jsp:getProperty name="studentBean" property="varsta" />
-             <input type="number" name="varsta" />
-             <br />
-             <br />
-             <button type="submit" name="submit">Actualizare</button>
-        </form>
+                     Nume:<input type="text" name="nume" />
+                     <br />
+                     Prenume: <input type="text" name="prenume" />
+                     <br />
+                     Varsta: <input type="number" name="varsta" />
+                     <br />
+                     <br />
+                     <button type="submit" name="submit">Actualizare</button>
+                </form>
     </body>
 </html>

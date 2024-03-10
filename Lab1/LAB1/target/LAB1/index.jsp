@@ -5,5 +5,14 @@
         <p>
         <a href="./hello">Acces la primul servlet</a>
         </p>
+        <p>
+        <a href="./formular.jsp">Formular student</a>
+        </p>
+        <p>
+        <a href="./read-student">Vizualizare student</a>
+        </p>
+        <p>
+        <a href="./view-table">Tabela student</a>
+        </p>
     </body>
 </html>

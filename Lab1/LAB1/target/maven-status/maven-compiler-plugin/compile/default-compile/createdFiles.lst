@@ -1,1 +1,6 @@
+beans/StudentBean.class
+ProcessStudentServlet.class
+CRUDOperations.class
 HelloServlet.class
+ViewTableServlet.class
+ReadStudentServlet.class
