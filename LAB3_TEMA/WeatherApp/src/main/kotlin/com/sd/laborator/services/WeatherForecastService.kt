@@ -17,22 +17,13 @@ class WeatherForecastService (private val timeService: TimeService) :
 // parsare obiect JSON primit
         val responseRootObject = JSONObject(rawResponse)
         val weatherDataObject = responseRootObject.getJSONObject("current")
-        //val weatherState = responseRootObject.getJSONObject("current").getString("condition.text")
-        //println(weatherState)
-        // Weather state icon URL might require additional logic based on API documentation
 
-        val currentTemp = weatherDataObject.getDouble("temp_c").roundToInt()
-        println(currentTemp)
-        val humidity = weatherDataObject.getInt("humidity")
-        println(humidity)
 // construire şi returnare obiect POJO care încapsulează datele meteo
         return WeatherForecastData(
             location = location,
             date = timeService.getCurrentTime(),
-            //weatherState =
-            //weatherDataObject.getString("weather_state_name"),
-            /*weatherStateIconURL =
-            "https://www.metaweather.com/static/img/weather/png/${weatherDataObject.getString("weather_state_abbr")}.png",*/
+            weatherState = weatherDataObject.getJSONObject("condition").getString("text"),
+            weatherStateIconURL = weatherDataObject.getJSONObject("condition").getString("icon"),
             windDirection =weatherDataObject.getString("wind_dir"),
             windSpeed =weatherDataObject.getDouble("wind_mph").roundToInt(),
             currentTemp =weatherDataObject.getDouble("temp_c").roundToInt(),
